@@ -3,7 +3,7 @@ import getTodayDate from "../utils/getDate";
 import prisma from "./prisma";
 
 export const GetAllDays = cache(async () => {
-  const toateZilele = await prisma.dayOfExercises.findMany();
+  const toateZilele = await prisma.dayOfExercises.findMany({});
 
   return toateZilele;
 });
