@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 interface RequestBody {
   nrAbdomene: number;
@@ -15,8 +16,7 @@ async function updateTotalAbdomene(nrAbdomene: number) {
 export async function POST(req: Request) {
   const body: RequestBody = await req.json();
   const { nrAbdomene, dataAzi } = body;
-  console.log(dataAzi);
-  console.log(nrAbdomene);
+
   if (!nrAbdomene) {
     return NextResponse.json(
       {
@@ -33,6 +33,6 @@ export async function POST(req: Request) {
     where: { date: dataAzi },
     data: { abdomens: { increment: nrAbdomene } },
   });
-
+  revalidatePath("/");
   return NextResponse.json("updated");
 }
