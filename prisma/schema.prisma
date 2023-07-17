@@ -1,0 +1,27 @@
+generator client {
+    provider        = "prisma-client-js"
+  
+}
+
+datasource db {
+    provider             = "mysql"
+    url                  = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+model totalExercises {
+    id          Int       @id @default(autoincrement())
+    totalPushups        Int
+    totalAbdomens Int
+    totalJumpingJacks       Int
+    totalDumbbellLifts       Int
+}
+
+model dayOfExercises {
+    id          Int       @id @default(autoincrement())
+    date        String @unique
+     pushups        Int
+    abdomens Int
+    jumpingJacks       Int
+    dumbbellLifts       Int
+}
