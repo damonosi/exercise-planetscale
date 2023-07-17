@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 interface RequestBody {
@@ -33,6 +32,6 @@ export async function POST(req: Request) {
     where: { date: dataAzi },
     data: { dumbbellLifts: { increment: nrRidicari } },
   });
-  revalidatePath("/");
+
   return new Response(JSON.stringify("gantere updatate"));
 }
