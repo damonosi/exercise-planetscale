@@ -1,3 +1,4 @@
+import Header from "@/components/Header/Header";
 import Providers from "@/lib/providers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -11,12 +12,19 @@ export const metadata: Metadata = {
     "Track your workout . Made with nextjs tailwindcss, planetscale, prisma",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <main> {children}</main>
+          <main className="flex flex-col">
+            <Header />
+            <div className="mt-16"> {children} </div>
+          </main>
         </Providers>
       </body>
     </html>

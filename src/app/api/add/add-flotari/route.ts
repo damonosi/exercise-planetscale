@@ -1,13 +1,15 @@
 import prisma from "@/lib/prisma";
+import { authOptions } from "@/utils/auth";
+import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 interface RequestBody {
   nrFlotari: number;
   dataAzi: string;
 }
 
-async function updateTotalFlotari(nrFlotari: number) {
+async function updateTotalFlotari(nrFlotari: number, userId: number) {
   return await prisma.totalExercises.update({
-    where: { id: 1 },
+    where: { userId: userId },
     data: { totalPushups: { increment: nrFlotari } },
   });
 }
@@ -25,10 +27,11 @@ export async function POST(req: Request) {
       },
     );
   }
-
-  await updateTotalFlotari(nrFlotari);
+  const session = await getServerSession(authOptions);
+  const userId = Number(session?.user?.id);
+  await updateTotalFlotari(nrFlotari, userId);
   await prisma.dayOfExercises.update({
-    where: { date: dataAzi },
+    where: { date: dataAzi, userId: userId },
     data: { pushups: { increment: nrFlotari } },
   });
 

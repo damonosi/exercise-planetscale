@@ -1,5 +1,6 @@
 "use client";
 
+import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +10,7 @@ interface IProviders {
 
 const Providers = ({ children }: IProviders) => {
   return (
-    <>
+    <SessionProvider>
       <ToastContainer
         theme="light"
         position="top-center"
@@ -23,7 +24,7 @@ const Providers = ({ children }: IProviders) => {
         pauseOnHover
       />
       {children}
-    </>
+    </SessionProvider>
   );
 };
 

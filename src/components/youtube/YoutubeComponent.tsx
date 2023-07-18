@@ -3,8 +3,8 @@ const YoutubeComponent = () => {
     <iframe
       width="560"
       height="315"
-      src="https://www.youtube.com/embed/5hMg7Af-Vrg"
-      title="YouTube video player"
+      src="https://www.youtube.com/embed/gHOYrshtofs"
+      title="Workout playlist"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
     ></iframe>

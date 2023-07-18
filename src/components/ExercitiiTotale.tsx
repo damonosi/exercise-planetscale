@@ -1,6 +1,7 @@
 import { getTotalCount } from "@/lib/getData";
 
 const ExercitiiTotaleComponent = async () => {
+
   const data = await getTotalCount();
   if (!data) {
     return <h1>no data</h1>;

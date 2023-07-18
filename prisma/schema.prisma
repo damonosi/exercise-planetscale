@@ -8,19 +8,36 @@ datasource db {
   relationMode = "prisma"
 }
 
-model totalExercises {
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  username    String?
+  password    String
+  role    Role     @default(USER)
+  history   TotalExercises?
+  dayExercise DayOfExercises[]
+}
+model TotalExercises {
     id          Int       @id @default(autoincrement())
     totalPushups        Int
     totalAbdomens Int
     totalJumpingJacks       Int
     totalDumbbellLifts       Int
+    user                   User      @relation(fields: [userId], references: [id])
+    userId   Int    @unique
 }
 
-model dayOfExercises {
+model DayOfExercises {
     id          Int       @id @default(autoincrement())
-    date        String @unique
-     pushups        Int
-    abdomens Int
+    date        String 
+    pushups        Int
+    abdomens        Int
     jumpingJacks       Int
     dumbbellLifts       Int
+    user              User @relation(fields: [userId], references: [id])
+    userId              Int    @unique
+}
+enum Role {
+  USER
+  ADMIN
 }

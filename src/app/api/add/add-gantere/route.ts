@@ -1,4 +1,6 @@
 import prisma from "@/lib/prisma";
+import { authOptions } from "@/utils/auth";
+import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 
 interface RequestBody {
@@ -6,9 +8,9 @@ interface RequestBody {
   dataAzi: string;
 }
 
-async function updateTotalRidicari(nrRidicari: number) {
+async function updateTotalRidicari(nrRidicari: number, userId: number) {
   return await prisma.totalExercises.update({
-    where: { id: 1 },
+    where: { userId: userId },
     data: { totalDumbbellLifts: { increment: nrRidicari } },
   });
 }
@@ -26,10 +28,11 @@ export async function POST(req: Request) {
       },
     );
   }
-
-  await updateTotalRidicari(nrRidicari);
+  const session = await getServerSession(authOptions);
+  const userId = Number(session?.user?.id);
+  await updateTotalRidicari(nrRidicari, userId);
   await prisma.dayOfExercises.update({
-    where: { date: dataAzi },
+    where: { date: dataAzi, userId: userId },
     data: { dumbbellLifts: { increment: nrRidicari } },
   });
 

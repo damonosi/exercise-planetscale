@@ -1,17 +1,28 @@
+import { authOptions } from "@/utils/auth";
+import { getServerSession } from "next-auth";
 import { cache } from "react";
 import getTodayDate from "../utils/getDate";
 import prisma from "./prisma";
+export async function getUserId() {
+  const session = await getServerSession(authOptions);
+  const userId = Number(session?.user?.id);
+  return userId;
+}
 
 export const GetAllDays = cache(async () => {
-  const toateZilele = await prisma.dayOfExercises.findMany({});
+  const userId = await getUserId();
+  const toateZilele = await prisma.dayOfExercises.findMany({
+    where: { userId: userId },
+  });
 
   return toateZilele;
 });
 
 export const getTotalCount = cache(async () => {
+  const userId = await getUserId();
   const totalCount = await prisma.totalExercises.findUnique({
     where: {
-      id: 1,
+      id: userId,
     },
   });
 
@@ -19,21 +30,10 @@ export const getTotalCount = cache(async () => {
 });
 export const getTodayCount = cache(async () => {
   const today = getTodayDate();
-
+  const userId = await getUserId();
   let todayCount = await prisma.dayOfExercises.findUnique({
-    where: { date: today },
+    where: { date: today, userId: userId },
   });
-  if (!todayCount) {
-    await prisma.dayOfExercises.create({
-      data: {
-        date: today,
-        pushups: 0,
-        abdomens: 0,
-        jumpingJacks: 0,
-        dumbbellLifts: 0,
-      },
-    });
-  }
 
   return todayCount;
 });
