@@ -3,7 +3,6 @@ import getError from "@/utils/getError";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -18,11 +17,9 @@ const RegisterScreen = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (session?.user) {
-      router.push("/");
-    }
-  }, [router, session]);
+  if (session?.user) {
+    router.push("/");
+  }
 
   const {
     handleSubmit,

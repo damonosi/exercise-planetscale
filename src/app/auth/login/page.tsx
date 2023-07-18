@@ -1,6 +1,13 @@
+import { authOptions } from "@/utils/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { LoginForm } from "./form";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect("/");
+  }
   return (
     <>
       <section className="bg-ct-blue-600 min-h-screen pt-20">
