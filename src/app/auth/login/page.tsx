@@ -4,11 +4,16 @@ import { useRouter } from "next/navigation";
 import { LoginForm } from "./form";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  console.log(status);
   const router = useRouter();
-  if (session) {
+  if (status === "loading") {
+    return <h1>Loading .....</h1>;
+  }
+  if (status === "authenticated") {
     router.push("/");
   }
+
   return (
     <>
       <section className="bg-ct-blue-600 min-h-screen pt-20">
