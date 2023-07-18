@@ -9,11 +9,9 @@ import { GoArrowSwitch } from "react-icons/go";
 export const revalidate = 0;
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  console.log(session);
-  if (!session?.user) {
-    redirect("/auth/login");
-  }
 
+
+if (session) {
   return (
     <div className="flex flex-col mx-auto items-center gap-5 justify-center py-8 ">
       <div className="flex gap-12">
@@ -27,4 +25,7 @@ export default async function Home() {
       </div>
     </div>
   );
+} else {
+  redirect("/auth/login");
+}
 }
