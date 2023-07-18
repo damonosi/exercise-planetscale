@@ -14,12 +14,8 @@ type FieldValues = {
 };
 
 const RegisterScreen = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
-
-  if (session?.user) {
-    router.push("/");
-  }
 
   const {
     handleSubmit,
@@ -43,6 +39,19 @@ const RegisterScreen = () => {
       toast.error(getError(err));
     }
   };
+  if (status === "authenticated") {
+    return (
+      <div className="flex flex-col text-red-600 min-h-screen gap-6 py-7 items-center">
+        <h1>You are already logged in</h1>
+        <button
+          className="border border-yellow-500 px-4 py-2"
+          onClick={() => router.push("/")}
+        >
+          Go to homepage
+        </button>
+      </div>
+    );
+  }
   return (
     <div>
       <form
