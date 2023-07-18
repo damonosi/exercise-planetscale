@@ -9,8 +9,8 @@ import { GoArrowSwitch } from "react-icons/go";
 export const revalidate = 0;
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/auth/login");
+  if (!session?.user) {
+    redirect("auth/login");
   }
 
   return (
