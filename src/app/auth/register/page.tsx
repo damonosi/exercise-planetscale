@@ -7,6 +7,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+type FieldValues = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 const RegisterScreen = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -22,17 +29,9 @@ const RegisterScreen = () => {
     register,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm<FieldValues>();
 
-  const submitHandler = async ({
-    name,
-    email,
-    password,
-  }: {
-    name: string;
-    email: string;
-    password: string;
-  }) => {
+  const submitHandler = async ({ name, email, password }: FieldValues) => {
     try {
       await axios.post("/api/auth/register", { name, email, password });
       const result = await signIn("credentials", {
@@ -66,10 +65,10 @@ const RegisterScreen = () => {
               },
             })}
             className="w-full"
-            id="username"
+            id="name"
             autoFocus
           ></input>
-          {errors.username && (
+          {errors.name && (
             <div className="text-red-500">{errors.name.message}</div>
           )}
         </div>
