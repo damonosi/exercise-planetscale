@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <main className="flex bg-[#000814] text-[#9EA3B0] flex-col">
             <Header />
-            <div className="mt-16"> {children} </div>
+            <div className="mt-14"> {children} </div>
           </main>
         </Providers>
       </body>
