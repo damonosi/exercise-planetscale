@@ -30,11 +30,29 @@ export async function POST(req: Request) {
   }
   const session = await getServerSession(authOptions);
   const userId = Number(session?.user?.id);
-  await updateTotalAbdomene(nrAbdomene, userId);
-  await prisma.dayOfExercises.update({
+  const today = await prisma.dayOfExercises.findFirst({
     where: { date: dataAzi, userId: userId },
-    data: { abdomens: { increment: nrAbdomene } },
   });
+  if (!today) {
+    await prisma.dayOfExercises.create({
+      data: {
+        date: dataAzi,
+        pushups: 0,
+        abdomens: nrAbdomene,
+        jumpingJacks: 0,
+        dumbbellLifts: 0,
+        userId: userId,
+      },
+    });
+    await updateTotalAbdomene(nrAbdomene, userId);
+  } else {
+    await updateTotalAbdomene(nrAbdomene, userId);
+    await prisma.dayOfExercises.update({
+      where: { date: dataAzi, userId: userId },
+      data: { abdomens: { increment: nrAbdomene } },
+    });
+  }
+ 
 
   return NextResponse.json("updated");
 }

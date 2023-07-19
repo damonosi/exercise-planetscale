@@ -29,11 +29,32 @@ export async function POST(req: Request) {
   }
   const session = await getServerSession(authOptions);
   const userId = Number(session?.user?.id);
-  await updateTotalSarituri(nrSarituri, userId);
-  await prisma.dayOfExercises.update({
+
+  const today = await prisma.dayOfExercises.findFirst({
     where: { date: dataAzi, userId: userId },
-    data: { jumpingJacks: { increment: nrSarituri } },
   });
+  if (!today) {
+    await prisma.dayOfExercises.create({
+      data: {
+        date: dataAzi,
+        pushups: 0,
+        abdomens: 0,
+        jumpingJacks: nrSarituri,
+        dumbbellLifts: 0,
+        userId: userId,
+      },
+    });
+    await updateTotalSarituri(nrSarituri, userId);
+  } else {
+    await updateTotalSarituri(nrSarituri, userId);
+    await prisma.dayOfExercises.update({
+      where: { date: dataAzi, userId: userId },
+      data: { jumpingJacks: { increment: nrSarituri } },
+    });
+  }
+
+
+
 
   return new Response(JSON.stringify("sarituri updatate"));
 }

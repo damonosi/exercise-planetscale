@@ -30,11 +30,30 @@ export async function POST(req: Request) {
   }
   const session = await getServerSession(authOptions);
   const userId = Number(session?.user?.id);
-  await updateTotalRidicari(nrRidicari, userId);
-  await prisma.dayOfExercises.update({
+
+  const today = await prisma.dayOfExercises.findFirst({
     where: { date: dataAzi, userId: userId },
-    data: { dumbbellLifts: { increment: nrRidicari } },
   });
+  if (!today) {
+    await prisma.dayOfExercises.create({
+      data: {
+        date: dataAzi,
+        pushups: 0,
+        abdomens: 0,
+        jumpingJacks: 0,
+        dumbbellLifts: nrRidicari,
+        userId: userId,
+      },
+    });
+    await updateTotalRidicari(nrRidicari, userId);
+  } else {
+    await updateTotalRidicari(nrRidicari, userId);
+    await prisma.dayOfExercises.update({
+      where: { date: dataAzi, userId: userId },
+      data: { dumbbellLifts: { increment: nrRidicari } },
+    });
+  }
+ 
 
   return new Response(JSON.stringify("gantere updatate"));
 }

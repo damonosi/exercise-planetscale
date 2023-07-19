@@ -29,11 +29,30 @@ export async function POST(req: Request) {
   }
   const session = await getServerSession(authOptions);
   const userId = Number(session?.user?.id);
-  await updateTotalFlotari(nrFlotari, userId);
-  await prisma.dayOfExercises.update({
+
+  const today = await prisma.dayOfExercises.findFirst({
     where: { date: dataAzi, userId: userId },
-    data: { pushups: { increment: nrFlotari } },
   });
+  if (!today) {
+    await prisma.dayOfExercises.create({
+      data: {
+        date: dataAzi,
+        pushups: nrFlotari,
+        abdomens: 0,
+        jumpingJacks: 0,
+        dumbbellLifts: 0,
+        userId: userId,
+      },
+    });
+    await updateTotalFlotari(nrFlotari, userId);
+  } else {
+    await updateTotalFlotari(nrFlotari, userId);
+    await prisma.dayOfExercises.update({
+      where: { date: dataAzi, userId: userId },
+      data: { pushups: { increment: nrFlotari } },
+    });
+  }
+  
 
   return new Response(JSON.stringify("nr flotari updatate"));
 }

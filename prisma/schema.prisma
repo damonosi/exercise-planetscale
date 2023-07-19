@@ -35,7 +35,8 @@ model DayOfExercises {
     jumpingJacks       Int
     dumbbellLifts       Int
     user              User @relation(fields: [userId], references: [id])
-    userId              Int    @unique
+    userId              Int   
+    @@index([userId])
 }
 enum Role {
   USER
