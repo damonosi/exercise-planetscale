@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     await updateTotalAbdomene(nrAbdomene, userId);
   } else {
     await updateTotalAbdomene(nrAbdomene, userId);
-    await prisma.dayOfExercises.update({
+    await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
       data: { abdomens: { increment: nrAbdomene } },
     });

@@ -11,7 +11,7 @@ datasource db {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
-  username    String?
+  username    String? @unique
   password    String
   role    Role     @default(USER)
   history   TotalExercises?
@@ -34,8 +34,10 @@ model DayOfExercises {
     abdomens        Int
     jumpingJacks       Int
     dumbbellLifts       Int
-    user              User @relation(fields: [userId], references: [id])
-    userId              Int   
+    userId              Int  
+    user              User  @relation(fields: [userId], references: [id])
+
+
     @@index([userId])
 }
 enum Role {

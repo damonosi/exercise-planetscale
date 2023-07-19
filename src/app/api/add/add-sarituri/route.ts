@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     await updateTotalSarituri(nrSarituri, userId);
   } else {
     await updateTotalSarituri(nrSarituri, userId);
-    await prisma.dayOfExercises.update({
+    await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
       data: { jumpingJacks: { increment: nrSarituri } },
     });

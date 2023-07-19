@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     await updateTotalFlotari(nrFlotari, userId);
   } else {
     await updateTotalFlotari(nrFlotari, userId);
-    await prisma.dayOfExercises.update({
+    await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
       data: { pushups: { increment: nrFlotari } },
     });

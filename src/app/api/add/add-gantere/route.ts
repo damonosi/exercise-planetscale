@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     await updateTotalRidicari(nrRidicari, userId);
   } else {
     await updateTotalRidicari(nrRidicari, userId);
-    await prisma.dayOfExercises.update({
+    await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
       data: { dumbbellLifts: { increment: nrRidicari } },
     });

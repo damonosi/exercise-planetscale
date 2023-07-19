@@ -29,7 +29,7 @@ export const getTotalCount = cache(async () => {
   if (!userId) {
     return;
   }
-  const totalCount = await prisma.totalExercises.findUnique({
+  const totalCount = await prisma.totalExercises.findFirst({
     where: {
       id: userId,
     },
@@ -43,7 +43,7 @@ export const getTodayCount = cache(async () => {
   if (!userId) {
     return;
   }
-  let todayCount = await prisma.dayOfExercises.findUnique({
+  let todayCount = await prisma.dayOfExercises.findFirst({
     where: { date: today, userId: userId },
   });
 
