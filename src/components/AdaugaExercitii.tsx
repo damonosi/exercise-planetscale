@@ -7,7 +7,7 @@ import Sarituri from "./exercitii/Sarituri";
 const AdaugaExercitii = () => {
   const dataAzi = getTodayDate();
   return (
-    <div className="flex flex-col border pb-4 w-fit border-black items-center gap-4">
+    <div className="flex flex-col border pb-4 w-fit border-black items-center gap-4 shadow-lg shadow-red-500/50">
       <span className="border-b-2 py-2 px-4 rounded-b-xl border-black border-l-2 border-r-2">
         {dataAzi}
       </span>

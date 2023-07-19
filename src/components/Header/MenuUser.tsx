@@ -10,6 +10,7 @@ const MenuUser = ({ open }: { open: boolean }) => {
           className="absolute bg-[#003249] bottom-0  top-full text-[#89998A]   flex flex-col items-center justify-center gap-6 pt-6 px-3 pb-3 h-fit "
           id="menuUser"
         >
+          <Link href="/workout">workout</Link>
           <Link href="/history">history</Link>
 
           <SignOutButton />
