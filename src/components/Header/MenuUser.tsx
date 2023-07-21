@@ -12,6 +12,7 @@ const MenuUser = ({ open }: { open: boolean }) => {
         >
           <Link href="/workout">workout</Link>
           <Link href="/history">history</Link>
+          <Link href="/friends">friends</Link>
 
           <SignOutButton />
         </div>
