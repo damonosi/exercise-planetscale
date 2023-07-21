@@ -11,7 +11,10 @@ interface RequestBody {
 async function updateTotalRidicari(nrRidicari: number, userId: number) {
   return await prisma.totalExercises.update({
     where: { userId: userId },
-    data: { totalDumbbellLifts: { increment: nrRidicari } },
+    data: {
+      totalDumbbellLifts: { increment: nrRidicari },
+      total: { increment: nrRidicari },
+    },
   });
 }
 
@@ -50,10 +53,12 @@ export async function POST(req: Request) {
     await updateTotalRidicari(nrRidicari, userId);
     await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
-      data: { dumbbellLifts: { increment: nrRidicari } },
+      data: {
+        dumbbellLifts: { increment: nrRidicari },
+        total: { increment: nrRidicari },
+      },
     });
   }
- 
 
   return new Response(JSON.stringify("gantere updatate"));
 }

@@ -10,7 +10,10 @@ interface RequestBody {
 async function updateTotalSarituri(nrSarituri: number, userId: number) {
   return await prisma.totalExercises.update({
     where: { userId: userId },
-    data: { totalJumpingJacks: { increment: nrSarituri } },
+    data: {
+      totalJumpingJacks: { increment: nrSarituri },
+      total: { increment: nrSarituri },
+    },
   });
 }
 
@@ -49,12 +52,12 @@ export async function POST(req: Request) {
     await updateTotalSarituri(nrSarituri, userId);
     await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
-      data: { jumpingJacks: { increment: nrSarituri } },
+      data: {
+        jumpingJacks: { increment: nrSarituri },
+        total: { increment: nrSarituri },
+      },
     });
   }
-
-
-
 
   return new Response(JSON.stringify("sarituri updatate"));
 }

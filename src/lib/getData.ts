@@ -37,6 +37,23 @@ export const getTotalCount = cache(async () => {
 
   return totalCount;
 });
+export const getBestScore = cache(async () => {
+  const userId = await getUserId();
+  if (!userId) {
+    return;
+  }
+  const bestScore = await prisma.dayOfExercises.findFirst({
+    take: 1,
+    where: {
+      userId: userId,
+    },
+    orderBy: {
+      total: "desc",
+    },
+  });
+
+  return bestScore;
+});
 export const getTodayCount = cache(async () => {
   const today = getTodayDate();
   const userId = await getUserId();

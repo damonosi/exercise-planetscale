@@ -10,7 +10,10 @@ interface RequestBody {
 async function updateTotalAbdomene(nrAbdomene: number, userId: number) {
   return await prisma.totalExercises.update({
     where: { userId: userId },
-    data: { totalAbdomens: { increment: nrAbdomene } },
+    data: {
+      totalAbdomens: { increment: nrAbdomene },
+      total: { increment: nrAbdomene },
+    },
   });
 }
 
@@ -49,7 +52,10 @@ export async function POST(req: NextRequest) {
     await updateTotalAbdomene(nrAbdomene, userId);
     await prisma.dayOfExercises.updateMany({
       where: { date: dataAzi, userId: userId },
-      data: { abdomens: { increment: nrAbdomene } },
+      data: {
+        abdomens: { increment: nrAbdomene },
+        total: { increment: nrAbdomene },
+      },
     });
   }
 
