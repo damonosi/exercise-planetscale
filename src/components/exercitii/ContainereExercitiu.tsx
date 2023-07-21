@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Spinner from "../Spinner";
 
 interface IProps {
   children: ReactNode | ReactNode[];
@@ -6,6 +7,7 @@ interface IProps {
 }
 interface IPropsValidare {
   className?: string;
+  loading: boolean;
   onClick: () => void;
 }
 
@@ -26,13 +28,17 @@ export const ContainerButoane = ({ children, className }: IProps) => {
   );
 };
 
-export const ButonValidare = ({ className, onClick }: IPropsValidare) => {
+export const ButonValidare = ({
+  className,
+  onClick,
+  loading,
+}: IPropsValidare) => {
   return (
     <button
       onClick={onClick}
       className={`border border-black rounded-full px-4 py-1 ${className}`}
     >
-      Add
+      {loading ? <Spinner /> : "Add"}
     </button>
   );
 };

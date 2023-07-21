@@ -53,12 +53,11 @@ const RegisterScreen = () => {
     );
   }
   return (
-    <div>
+    <div className="flex min-h-screen justify-center items-center">
       <form
-        className="mx-auto max-w-screen-md"
+        className="mx-auto shadow-xl shadow-red-700/60 px-6 py-4 max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Name</h1>
         <div className="mb-4">
           <label htmlFor="name">Username</label>
           <input
@@ -133,7 +132,7 @@ const RegisterScreen = () => {
               <div className="text-red-500 ">Passwords do not match</div>
             )}
         </div>
-        <div className="mb-4 ">
+        <div className="inline-block px-7 text-center py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full ">
           <button className="primary-button">Register</button>
         </div>
       </form>

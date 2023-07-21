@@ -49,3 +49,18 @@ export const getTodayCount = cache(async () => {
 
   return todayCount;
 });
+export const GetFriendsData = cache(async () => {
+  const userId = await getUserId();
+  if (!userId) {
+    return;
+  }
+  const user = await prisma.user.findFirst({
+    where: { id: userId },
+    include: {
+      friends: true,
+    },
+  });
+  const friends = user?.friends;
+
+  return friends;
+});

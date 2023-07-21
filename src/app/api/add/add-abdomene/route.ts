@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 interface RequestBody {
   nrAbdomene: number;
   dataAzi: string;
@@ -14,7 +14,7 @@ async function updateTotalAbdomene(nrAbdomene: number, userId: number) {
   });
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body: RequestBody = await req.json();
   const { nrAbdomene, dataAzi } = body;
 
@@ -52,7 +52,6 @@ export async function POST(req: Request) {
       data: { abdomens: { increment: nrAbdomene } },
     });
   }
- 
 
   return NextResponse.json("updated");
 }

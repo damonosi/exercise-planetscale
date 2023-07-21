@@ -10,15 +10,20 @@ import {
   ContainerButoane,
   ContainerExercitiu,
 } from "./ContainereExercitiu";
+
 const Abdomene = ({ dataAzi }: { dataAzi: string }) => {
   const [nrAbdomene, setNrAbdomene] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   async function handleClick() {
     try {
+      setLoading(true);
+
       await axios.post("/api/add/add-abdomene", { nrAbdomene, dataAzi });
-      toast.success("Abdomene adaugate");
       setNrAbdomene(0);
+      setLoading(false);
       router.refresh();
+      toast.success("Abdomene adaugate");
     } catch (err) {
       toast.error(getError(err));
     }
@@ -33,7 +38,10 @@ const Abdomene = ({ dataAzi }: { dataAzi: string }) => {
         </span>
         <button onClick={() => setNrAbdomene(nrAbdomene + 5)}>+</button>
       </ContainerButoane>
-      <ButonValidare onClick={handleClick} />
+      <ButonValidare
+        loading={loading}
+        onClick={handleClick}
+      />
     </ContainerExercitiu>
   );
 };
