@@ -1,10 +1,10 @@
 import { getBestScore } from "@/lib/getData";
-import DayCard from "./DayCard";
+import BestDayCard from "./BestDayCard";
 
 const BestScore = async () => {
   const bestScore = await getBestScore();
 
-  const { pushups, abdomens, jumpingJacks, dumbbellLifts, total } =
+  const { date, pushups, abdomens, jumpingJacks, dumbbellLifts, total } =
     bestScore || {
       pushups: 0,
       abdomens: 0,
@@ -12,11 +12,11 @@ const BestScore = async () => {
       dumbbellLifts: 0,
       total: 0,
     };
-  console.log(bestScore);
+
   return (
     <div>
-      <DayCard
-        date="Best day of workout"
+      <BestDayCard
+        date={`${date} `}
         pushups={pushups}
         abdomens={abdomens}
         jumpingJacks={jumpingJacks}

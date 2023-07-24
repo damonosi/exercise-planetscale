@@ -52,6 +52,7 @@ export async function POST(req: Request) {
           totalAbdomens: 0,
           totalJumpingJacks: 0,
           totalDumbbellLifts: 0,
+          total: 0,
         },
       },
       dayExercise: {
