@@ -34,7 +34,7 @@ const Plank = ({ dataAzi }: { dataAzi: string }) => {
         <span className="min-w-[25px] flex items-center justify-center">
           {plankTime}
         </span>
-        <button onClick={() => setPlankTime(plankTime + 1)}>+</button>
+        <button onClick={() => setPlankTime(plankTime + 5)}>+</button>
       </ContainerButoane>
       <ButonValidare
         loading={loading}
