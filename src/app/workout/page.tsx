@@ -1,5 +1,5 @@
-import AdaugaExercitii from "@/components/AdaugaExercitii";
-import TotalAzi from "@/components/TotalAzi";
+import AdaugaExercitii from "@/components/exercitii/AdaugaExercitii";
+import TotalAzi from "@/components/exercitii/TotalAzi";
 import { GoArrowSwitch } from "react-icons/go";
 
 const WorkoutPage = () => {

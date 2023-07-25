@@ -1,5 +1,5 @@
 import { GetAllDays } from "@/lib/getData";
-import DayCard from "./exercitii/DayCard";
+import DayCard from "./DayCard";
 const ExerciseHistory = async () => {
   const toateZilele = await GetAllDays();
   if (!toateZilele) {
@@ -7,20 +7,30 @@ const ExerciseHistory = async () => {
   }
   const dayCount = toateZilele.length;
   return (
-    <div className="flex flex-col w-full px-14 py-4 items-center border  ">
+    <div className="flex flex-col w-full px-14 py-4 items-center   ">
       <span className=" py-2 px-4 border-b-0 rounded-t-xl border-black border-t-2 border-l-2 border-r-2">
         {dayCount} days
       </span>
-      <div className=" flex  border border-black px-4  w-full py-6 rounded-lg">
+      <div className=" flex border  border-black px-12  w-full py-16 rounded-lg overflow-x-auto">
         {toateZilele.map(
-          ({ date, pushups, abdomens, jumpingJacks, dumbbellLifts, total }) => {
+          ({
+            date,
+            pushups,
+            abdomens,
+            jumpingJacks,
+            dumbbellLifts,
+            plank,
+            total,
+          }) => {
             return (
               <DayCard
+                key={date}
                 date={date}
                 pushups={pushups}
                 abdomens={abdomens}
                 jumpingJacks={jumpingJacks}
                 dumbbellLifts={dumbbellLifts}
+                plank={plank}
                 total={total}
               />
             );

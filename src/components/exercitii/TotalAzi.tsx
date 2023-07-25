@@ -1,17 +1,17 @@
 import { getTodayCount } from "@/lib/getData";
 
-
 const TotalAzi = async () => {
   const today = await getTodayCount();
 
-  const { pushups, abdomens, jumpingJacks, dumbbellLifts } = today || {
-    pushups: 0,
-    abdomens: 0,
-    jumpingJacks: 0,
-    dumbbellLifts: 0,
-  };
-
-  const total = pushups + abdomens + jumpingJacks + dumbbellLifts;
+  const { pushups, abdomens, jumpingJacks, dumbbellLifts, plank, total } =
+    today || {
+      pushups: 0,
+      abdomens: 0,
+      jumpingJacks: 0,
+      dumbbellLifts: 0,
+      plank: 0,
+      total: 0,
+    };
 
   return (
     <div
@@ -40,6 +40,11 @@ const TotalAzi = async () => {
         {" "}
         <p>gantere</p>
         <p>{!today ? 0 : dumbbellLifts}</p>
+      </span>
+      <span className="flex gap-16 justify-between w-full">
+        {" "}
+        <p>plank (minutes)</p>
+        <p>{!today ? 0 : plank}</p>
       </span>
 
       <span className="flex gap-16 justify-between w-full border-black border-t-2 pt-2">

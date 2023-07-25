@@ -28,10 +28,11 @@ const RegisterScreen = () => {
     try {
       await axios.post("/api/auth/register", { name, email, password });
       const result = await signIn("credentials", {
-        redirect: false,
+        redirect: true,
         email,
         password,
       });
+
       if (result?.error) {
         toast.error(result.error);
       }
@@ -40,17 +41,7 @@ const RegisterScreen = () => {
     }
   };
   if (status === "authenticated") {
-    return (
-      <div className="flex flex-col text-red-600 min-h-screen gap-6 py-7 items-center">
-        <h1>You are already logged in</h1>
-        <button
-          className="border border-yellow-500 px-4 py-2"
-          onClick={() => router.push("/")}
-        >
-          Go to homepage
-        </button>
-      </div>
-    );
+    router.push("/");
   }
   return (
     <div className="flex min-h-screen justify-center items-center">

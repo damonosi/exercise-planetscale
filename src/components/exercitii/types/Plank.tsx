@@ -9,34 +9,32 @@ import {
   ButonValidare,
   ContainerButoane,
   ContainerExercitiu,
-} from "./ContainereExercitiu";
-
-const Abdomene = ({ dataAzi }: { dataAzi: string }) => {
-  const [nrAbdomene, setNrAbdomene] = useState(0);
+} from "../ContainereExercitiu";
+const Plank = ({ dataAzi }: { dataAzi: string }) => {
+  const [plankTime, setPlankTime] = useState(0);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   async function handleClick() {
     try {
       setLoading(true);
-
-      await axios.post("/api/add/add-abdomene", { nrAbdomene, dataAzi });
-      setNrAbdomene(0);
+      await axios.post("/api/add/planks", { plankTime, dataAzi });
+      toast.success("Plank time added");
+      setPlankTime(0);
       setLoading(false);
       router.refresh();
-      toast.success("Abdomene adaugate");
     } catch (err) {
       toast.error(getError(err));
     }
   }
   return (
-    <ContainerExercitiu className="border-b-2 ">
-      <h2 className="w-28">Abdomene</h2>
+    <ContainerExercitiu className=" border-b-2 ">
+      <h2 className="w-28">Plank (seconds)</h2>
       <ContainerButoane>
-        <button onClick={() => setNrAbdomene(nrAbdomene - 5)}>-</button>
+        <button onClick={() => setPlankTime(plankTime - 5)}>-</button>
         <span className="min-w-[25px] flex items-center justify-center">
-          {nrAbdomene}
+          {plankTime}
         </span>
-        <button onClick={() => setNrAbdomene(nrAbdomene + 5)}>+</button>
+        <button onClick={() => setPlankTime(plankTime + 1)}>+</button>
       </ContainerButoane>
       <ButonValidare
         loading={loading}
@@ -46,4 +44,4 @@ const Abdomene = ({ dataAzi }: { dataAzi: string }) => {
   );
 };
 
-export default Abdomene;
+export default Plank;

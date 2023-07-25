@@ -1,5 +1,4 @@
 import Link from "next/link";
-import YoutubeComponent from "../youtube/YoutubeComponent";
 import DropdownUser from "./DropdownUser";
 const Header = () => {
   return (
@@ -7,7 +6,6 @@ const Header = () => {
       <Link href="/">
         <h1 className="text-white">Exercise Tracker</h1>
       </Link>{" "}
-      <YoutubeComponent />
       <div className="flex gap-4">
         <DropdownUser />
       </div>

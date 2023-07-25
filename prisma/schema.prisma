@@ -25,7 +25,9 @@ model TotalExercises {
     totalAbdomens Int
     totalJumpingJacks       Int
     totalDumbbellLifts       Int
+    totalPlank Int @default(0)
     total Int
+
     user                   User      @relation(fields: [userId], references: [id])
     userId   Int    @unique
 }
@@ -37,6 +39,7 @@ model DayOfExercises {
     abdomens        Int
     jumpingJacks       Int
     dumbbellLifts       Int
+    plank  Int @default(0)
     total Int @default(0)
     userId              Int  
     user              User  @relation(fields: [userId], references: [id])

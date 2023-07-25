@@ -1,8 +1,9 @@
 import getTodayDate from "@/utils/getDate";
-import Abdomene from "./exercitii/Abdomene";
-import Flotari from "./exercitii/Flotari";
-import Gantere from "./exercitii/Gantere";
-import Sarituri from "./exercitii/Sarituri";
+import Abdomene from "./types/Abdomene";
+import Flotari from "./types/Flotari";
+import Gantere from "./types/Gantere";
+import Plank from "./types/Plank";
+import Sarituri from "./types/Sarituri";
 
 const AdaugaExercitii = () => {
   const dataAzi = getTodayDate();
@@ -16,6 +17,7 @@ const AdaugaExercitii = () => {
       <Abdomene dataAzi={dataAzi} />
       <Sarituri dataAzi={dataAzi} />
       <Gantere dataAzi={dataAzi} />
+      <Plank dataAzi={dataAzi} />
     </div>
   );
 };
