@@ -20,8 +20,13 @@ const AnimatedImage = ({
   radiusOrigin?: "t" | "r" | "b" | "l" | "tl" | "tr" | "br" | "bl";
 }) => {
   const item = {
-    hidden: { x: xOrigin, opacity: 0, margin: 30, scale: 0.5 },
-    show: { x: xAnimated, opacity: 1, margin: 2, scale: 1 },
+    hidden: { x: xOrigin, opacity: 0, scale: 0.5 },
+    show: {
+      x: xAnimated,
+      opacity: 1,
+      scale: 1,
+      transition: { delay: 1.5, duration: 0.5 },
+    },
   };
   return (
     <motion.div
@@ -44,15 +49,13 @@ const AnimatedText = () => {
     show: {
       opacity: 1,
       transition: {
-        delay: 2,
-        delayChildren: 2,
-        staggerChildren: 0.4,
+        staggerChildren: 0.3,
       },
     },
   };
 
   const item = {
-    hidden: { opacity: 0, scale: 0.5 },
+    hidden: { opacity: 0.2, scale: 0.2 },
     show: { opacity: 1, scale: 1 },
   };
   return (
@@ -60,7 +63,7 @@ const AnimatedText = () => {
       variants={container}
       initial="hidden"
       animate="show"
-      className="flex flex-col drop-shadow-xl leading-relaxed font-extrabold w-1/5 items-center text-6xl text-start"
+      className="flex flex-col drop-shadow-xl leading-relaxed font-extrabold w-1/5 mx-6 items-center text-6xl text-start"
     >
       <motion.span
         className=" "

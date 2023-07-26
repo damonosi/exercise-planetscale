@@ -9,16 +9,20 @@ export default async function Home() {
         className=""
         id="explicatie1"
       >
-        <h2>Apuca-te</h2>
+        <h2>Workout</h2>
       </section>
       <div
         className=""
         id="explicatie1"
-      ></div>
+      >
+        <h2>History</h2>
+      </div>
       <div
         className=""
         id="explicatie1"
-      ></div>
+      >
+        <h2>Friends</h2>
+      </div>
     </div>
   );
 }
