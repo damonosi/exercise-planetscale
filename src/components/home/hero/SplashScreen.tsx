@@ -11,13 +11,13 @@ const AnimatedImage = ({
   xOrigin,
   yOrigin,
   xAnimated,
-  radiusOrigin,
+  className,
 }: {
   src: StaticImageData;
   xOrigin?: number;
   xAnimated?: number;
   yOrigin?: number;
-  radiusOrigin?: "t" | "r" | "b" | "l" | "tl" | "tr" | "br" | "bl" | "s";
+  className?: string;
 }) => {
   const item = {
     hidden: { x: xOrigin, opacity: 0, scale: 0.5 },
@@ -35,8 +35,8 @@ const AnimatedImage = ({
     >
       <Image
         alt="workout-img-1"
-        className={`rounded-${radiusOrigin}-full `}
         placeholder="blur"
+        className={className}
         src={src}
       />
     </motion.div>
@@ -114,13 +114,13 @@ const SplashScreen = () => {
         <AnimatedImage
           xOrigin={-50}
           xAnimated={0}
-          radiusOrigin="s"
+          className="rounded-s-full overflow-hidden"
           src={work2}
         />
         <AnimatedImage
           xOrigin={-100}
           xAnimated={0}
-          radiusOrigin="s"
+          className="rounded-s-full overflow-hidden"
           src={work1}
         />
       </div>
@@ -129,13 +129,13 @@ const SplashScreen = () => {
         <AnimatedImage
           xOrigin={50}
           xAnimated={0}
-          radiusOrigin="r"
+          className="rounded-r-full overflow-hidden"
           src={work4}
         />
         <AnimatedImage
           xOrigin={100}
           xAnimated={0}
-          radiusOrigin="r"
+          className="rounded-r-full overflow-hidden"
           src={work3}
         />
       </div>
