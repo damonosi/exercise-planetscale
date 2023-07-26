@@ -17,7 +17,7 @@ const AnimatedImage = ({
   xOrigin?: number;
   xAnimated?: number;
   yOrigin?: number;
-  radiusOrigin?: "t" | "r" | "b" | "l" | "tl" | "tr" | "br" | "bl";
+  radiusOrigin?: "t" | "r" | "b" | "l" | "tl" | "tr" | "br" | "bl" | "s";
 }) => {
   const item = {
     hidden: { x: xOrigin, opacity: 0, scale: 0.5 },
@@ -49,7 +49,7 @@ const AnimatedText = () => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.4,
       },
     },
   };
@@ -63,7 +63,7 @@ const AnimatedText = () => {
       variants={container}
       initial="hidden"
       animate="show"
-      className="flex flex-col drop-shadow-xl leading-relaxed font-extrabold w-1/5 mx-6 items-center text-6xl text-start"
+      className="flex flex-col shadow-xl leading-relaxed font-extrabold w-1/5 mx-6 items-center text-6xl text-start"
     >
       <motion.span
         className=" "
@@ -114,13 +114,13 @@ const SplashScreen = () => {
         <AnimatedImage
           xOrigin={-50}
           xAnimated={0}
-          radiusOrigin="l"
+          radiusOrigin="s"
           src={work2}
         />
         <AnimatedImage
           xOrigin={-100}
           xAnimated={0}
-          radiusOrigin="l"
+          radiusOrigin="s"
           src={work1}
         />
       </div>
