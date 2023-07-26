@@ -19,7 +19,7 @@ async function updateTotalPlank(plankTime: number, userId: number) {
 
 export async function POST(req: Request) {
   const body: RequestBody = await req.json();
-  let { plankTime, dataAzi } = body;
+  const { plankTime, dataAzi } = body;
 
   if (!plankTime) {
     return NextResponse.json(
@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     );
   }
   let plankTimeMinutes = plankTime / 60;
+  console.log(plankTimeMinutes);
   const session = await getServerSession(authOptions);
   const userId = Number(session?.user?.id);
 

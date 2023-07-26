@@ -24,27 +24,27 @@ const TotalAzi = async () => {
       <span className="flex gap-16 justify-between w-full">
         <p>flotari</p>
 
-        <p>{!today ? 0 : pushups}</p>
+        <p>{pushups}</p>
       </span>
       <span className="flex gap-16 justify-between w-full">
         {" "}
         <p>abdomene</p>
-        <p>{!today ? 0 : abdomens}</p>
+        <p>{abdomens}</p>
       </span>
       <span className="flex gap-16 justify-between w-full">
         {" "}
         <p>sarituri</p>
-        <p>{!today ? 0 : jumpingJacks}</p>
+        <p>{jumpingJacks}</p>
       </span>
       <span className="flex gap-16 justify-between w-full">
         {" "}
         <p>gantere</p>
-        <p>{!today ? 0 : dumbbellLifts}</p>
+        <p>{dumbbellLifts}</p>
       </span>
       <span className="flex gap-16 justify-between w-full">
         {" "}
         <p>plank (minutes)</p>
-        <p>{!today ? 0 : plank}</p>
+        <p>{typeof plank === "number" ? plank : plank.toNumber()}</p>
       </span>
 
       <span className="flex gap-16 justify-between w-full border-black border-t-2 pt-2">

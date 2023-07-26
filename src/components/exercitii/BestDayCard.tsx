@@ -4,6 +4,8 @@ interface IDayCard {
   pushups: number;
   abdomens: number;
   jumpingJacks: number;
+  plank: number;
+
   dumbbellLifts: number;
 }
 
@@ -13,6 +15,7 @@ const BestDayCard = ({
   pushups,
   abdomens,
   jumpingJacks,
+  plank,
   dumbbellLifts,
 }: IDayCard) => {
   return (
@@ -50,6 +53,11 @@ const BestDayCard = ({
           <p>gantere</p>
 
           <p>{dumbbellLifts}</p>
+        </span>
+        <span className="flex justify-between w-full">
+          <p>plank (minutes)</p>
+
+          <p>{plank}</p>
         </span>
 
         <span className="flex justify-between w-full border-black border-t-2 pt-2">

@@ -34,7 +34,7 @@ const ExercitiiTotaleComponent = async () => {
           dumbbell lifts <br /> {totalDumbbellLifts}
         </span>
         <span className=" flex justify-center rounded-full px-4 py-4 text-center  shadow-xl shadow-[#003566]/50">
-          plank (minutes) <br /> {totalPlank}
+          plank (minutes) <br /> {totalPlank.toNumber()}
         </span>
       </div>
     </section>

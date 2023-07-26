@@ -1,7 +1,7 @@
 const Legend = () => {
   return (
     <div
-      className="border border-black w-fit px-7 py-6 rounded-3xl bg-gray-600"
+      className="border border-black w-fit px-7 py-6 rounded-3xl "
       id="history-legend"
     >
       <h1 className="text-lg text-yellow-100">Legend</h1>
