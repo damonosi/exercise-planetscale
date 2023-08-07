@@ -5,7 +5,8 @@ import getTodayDate from "../utils/getDate";
 import prisma from "./prisma";
 export async function getUserId() {
   const session = await getServerSession(authOptions);
-  const userId = Number(session?.user?.id);
+  const userId = String(session?.user?.id);
+
   if (!userId) {
     return;
   }
@@ -17,51 +18,25 @@ export const GetAllDays = cache(async () => {
   if (!userId) {
     return;
   }
-  const toateZilele = await prisma.dayOfExercises.findMany({
+  const toateZilele = await prisma.exerciseDay.findMany({
     where: { userId: userId },
   });
 
   return toateZilele;
 });
 
-export const getTotalCount = cache(async () => {
-  const userId = await getUserId();
-  if (!userId) {
-    return;
-  }
-  const totalCount = await prisma.totalExercises.findFirst({
-    where: {
-      id: userId,
-    },
-  });
-
-  return totalCount;
-});
-export const getBestScore = cache(async () => {
-  const userId = await getUserId();
-  if (!userId) {
-    return;
-  }
-  const bestScore = await prisma.dayOfExercises.findFirst({
-    take: 1,
-    where: {
-      userId: userId,
-    },
-    orderBy: {
-      total: "desc",
-    },
-  });
-
-  return bestScore;
-});
 export const getTodayCount = cache(async () => {
   const today = getTodayDate();
+
   const userId = await getUserId();
   if (!userId) {
     return;
   }
-  let todayCount = await prisma.dayOfExercises.findFirst({
-    where: { date: today, userId: userId },
+  let todayCount = await prisma.exerciseDay.findFirst({
+    where: { userId: userId, date: today },
+    include: {
+      exercises: true,
+    },
   });
 
   return todayCount;

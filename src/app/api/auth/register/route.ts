@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import getTodayDate from "@/utils/getDate";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 interface RequestBody {
@@ -40,32 +39,12 @@ export async function POST(req: Request) {
       },
     );
   }
-  const today = getTodayDate();
+
   const newUser = await prisma.user.create({
     data: {
       username: name,
       email: email,
       password: await bcrypt.hash(password, 10),
-      history: {
-        create: {
-          totalPushups: 0,
-          totalAbdomens: 0,
-          totalJumpingJacks: 0,
-          totalDumbbellLifts: 0,
-          total: 0,
-        },
-      },
-      dayExercise: {
-        create: [
-          {
-            date: today,
-            pushups: 0,
-            abdomens: 0,
-            jumpingJacks: 0,
-            dumbbellLifts: 0,
-          },
-        ],
-      },
     },
   });
 

@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers session={session}>
-          <main className="flex bg-[#000814] text-[#9EA3B0] flex-col">
+          <main className="flex  text-gri flex-col">
             <Image
               alt="site back"
               className="w-full h-screen z-10"
@@ -32,7 +32,7 @@ export default async function RootLayout({
               src="/backgr.png"
             />
             <Header />
-            <div className="mt-14 z-10 px-80"> {children} </div>
+            <div className="mt-14 z-10 px-56"> {children} </div>
           </main>
         </Providers>
       </body>

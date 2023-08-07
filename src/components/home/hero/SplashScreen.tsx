@@ -1,7 +1,9 @@
 "use client";
 import SignInButton from "@/components/auth/SignInButton";
+import ButtonGeneral from "@/components/buttons/ButtonGeneral";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 const AnimatedText = () => {
   const container = {
     hidden: { opacity: 0 },
@@ -62,13 +64,37 @@ const SplashScreen = () => {
       variants={container}
       initial="hidden"
       animate="show"
-      className="flex w-full h-screen-minusHeader items-end pb-14"
+      className="flex w-full h-screen-minusHeader relative items-end pb-14"
       id="hero"
     >
-      <div className="flex flex-col gap-16 ">
-        <AnimatedText />
-        {!session?.user && <SignInButton />}{" "}
-      </div>
+      {session?.user && (
+        <div className="flex flex-col w-full  ">
+          <div className="flex  gap-14 absolute top-1/3 right-0">
+            <Link href="/workout">
+              <ButtonGeneral className="bg-[#162A2C] text-3xl hover:bg-portocaliu">
+                WORKOUT
+              </ButtonGeneral>
+            </Link>
+            <Link href="/history">
+              <ButtonGeneral className="bg-[#162A2C] text-3xl hover:bg-portocaliu">
+                HISTORY
+              </ButtonGeneral>
+            </Link>
+            <Link href="/friends">
+              <ButtonGeneral className="bg-[#162A2C] text-3xl hover:bg-portocaliu">
+                FRIENDS
+              </ButtonGeneral>
+            </Link>
+          </div>
+          <AnimatedText />
+        </div>
+      )}
+      {!session?.user && (
+        <div className="flex flex-col gap-16 ">
+          <AnimatedText />
+          <SignInButton />{" "}
+        </div>
+      )}{" "}
     </motion.div>
   );
 };

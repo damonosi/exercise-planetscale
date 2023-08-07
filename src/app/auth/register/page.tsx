@@ -3,7 +3,7 @@ import ButtonGeneral from "@/components/buttons/ButtonGeneral";
 import getError from "@/utils/getError";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -24,26 +24,27 @@ const RegisterScreen = () => {
     getValues,
     formState: { errors },
   } = useForm<FieldValues>();
-
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const submitHandler = async ({ name, email, password }: FieldValues) => {
     try {
       await axios.post("/api/auth/register", { name, email, password });
       const result = await signIn("credentials", {
-        redirect: true,
-        email,
-        password,
+        redirect: false,
+        username: name,
+        password: password,
+        callbackUrl,
       });
-
-      if (result?.error) {
+      if (!result?.error) {
+        router.push("/");
+      } else {
         toast.error(result.error);
       }
     } catch (err) {
       toast.error(getError(err));
     }
   };
-  if (status === "authenticated") {
-    router.push("/");
-  }
+
   const input_style =
     " block w-full px-4 py-5 border-[3px] bg-transparent  border-[#D35400] text-sm font-normal text-gray-700   rounded transition ease-in-out m-0 text-gri focus:outline-none focus:ring-2 focus:ring-[#D35400]";
 

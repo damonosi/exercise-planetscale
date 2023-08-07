@@ -9,45 +9,51 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
+  id      String       @id @default(uuid()) @unique
   email   String   @unique
   username    String? @unique
   password    String
   role    Role     @default(USER)
   friends         User[] @relation("friends")
   friendsRelation User[] @relation("friends")
-  history   TotalExercises?
-  dayExercise DayOfExercises[]
-}
-model TotalExercises {
-    id          Int       @id @default(autoincrement())
-    totalPushups        Int
-    totalAbdomens Int
-    totalJumpingJacks       Int
-    totalDumbbellLifts       Int
-    totalPlank Decimal @default(0)
-    total Int
-
-    user                   User      @relation(fields: [userId], references: [id])
-    userId   Int    @unique
+  history   ExerciseDay[]
+  
 }
 
-model DayOfExercises {
-    id          Int       @id @default(autoincrement())
+
+
+
+model Exercise{
+    id      String       @id @default(uuid())
+    name String
+    dayId              String  
+    day ExerciseDay @relation(fields: [dayId], references: [id])
+    category ExerciseCategory 
+    timeToBeat Int @default(10)
+    time Int? @default(0)
+    @@index([dayId])
+}
+
+model ExerciseDay {
+    id          String        @id @default(uuid())
     date        String 
-    pushups        Int
-    abdomens        Int
-    jumpingJacks       Int
-    dumbbellLifts       Int
-    plank  Decimal @default(0)
-    total Int @default(0)
-    userId              Int  
-    user              User  @relation(fields: [userId], references: [id])
+    exercises       Exercise[] 
+    userId String 
+    user User @relation(fields: [userId], references: [id])
+     @@index([userId])
 
-
-    @@index([userId])
 }
+
+
+
 enum Role {
   USER
   ADMIN
+}
+
+enum ExerciseCategory {
+  endurance
+  strength
+  balance
+  flexibility
 }

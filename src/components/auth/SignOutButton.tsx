@@ -8,7 +8,7 @@ const SignOutButton = () => {
           callbackUrl: "/",
         });
       }}
-      className="text-red-600"
+      className=" uppercase w-full hover:bg-portocaliu py-4 px-8"
     >
       Sign out
     </button>

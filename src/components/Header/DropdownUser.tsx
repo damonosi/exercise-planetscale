@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { BsBoxArrowDown } from "react-icons/bs";
+import ArrowDown from "../svgs/ArrowDown";
 import MenuUser from "./MenuUser";
 
 const DropdownUser = () => {
@@ -17,10 +17,14 @@ const DropdownUser = () => {
           className="group flex items-center justify-center  w-14 h-14 "
           onClick={() => setOpen(!open)}
         >
-          <span className="flex gap-2 text-sky-600 items-center">
-            <p className="">{session?.user?.username} </p>
-            <BsBoxArrowDown className="group-active:scale-90 group-hover:scale-95" />
-          </span>{" "}
+          <span className="flex gap-2 text-sky-600 items-center justify-center">
+            <p className="text-gri capitalize">{session?.user?.username} </p>
+            <ArrowDown
+              className={`w-5 h-5 transition-transform ${
+                open ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </span>
         </button>
       ) : null}
       <MenuUser open={open} />
