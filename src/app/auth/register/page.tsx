@@ -1,4 +1,5 @@
 "use client";
+import ButtonGeneral from "@/components/buttons/ButtonGeneral";
 import getError from "@/utils/getError";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
@@ -43,10 +44,13 @@ const RegisterScreen = () => {
   if (status === "authenticated") {
     router.push("/");
   }
+  const input_style =
+    " block w-full px-4 py-5 border-[3px] bg-transparent  border-[#D35400] text-sm font-normal text-gray-700   rounded transition ease-in-out m-0 text-gri focus:outline-none focus:ring-2 focus:ring-[#D35400]";
+
   return (
-    <div className="flex min-h-screen justify-center items-center">
+    <div className="flex absolute h-screen-minusHeader left-0 right-0 bg-black bg-opacity-70 justify-center items-center">
       <form
-        className="mx-auto shadow-xl shadow-red-700/60 px-6 py-4 max-w-screen-md"
+        className="mx-auto text-gri  px-6 py-4 w-96"
         onSubmit={handleSubmit(submitHandler)}
       >
         <div className="mb-4">
@@ -60,7 +64,7 @@ const RegisterScreen = () => {
                 message: "Please enter valid name",
               },
             })}
-            className="w-full"
+            className={`${input_style}  `}
             id="name"
             autoFocus
           ></input>
@@ -79,7 +83,7 @@ const RegisterScreen = () => {
                 message: "Please enter valid email",
               },
             })}
-            className="w-full"
+            className={`${input_style}  `}
             id="email"
           ></input>
           {errors.email && (
@@ -92,9 +96,12 @@ const RegisterScreen = () => {
             type="password"
             {...register("password", {
               required: "Please enter password",
-              minLength: { value: 6, message: "password is more than 5 chars" },
+              minLength: {
+                value: 6,
+                message: "password is more than 5 chars",
+              },
             })}
-            className="w-full"
+            className={`${input_style}  `}
             id="password"
           ></input>
           {errors.password && (
@@ -109,9 +116,12 @@ const RegisterScreen = () => {
             {...register("confirmPassword", {
               required: "Please enter confirm password",
               validate: (value) => value === getValues("password"),
-              minLength: { value: 6, message: "password is more than 5 chars" },
+              minLength: {
+                value: 6,
+                message: "password is more than 5 chars",
+              },
             })}
-            className="w-full"
+            className={`${input_style}  `}
           />
           {errors.confirmPassword && (
             <div className="text-red-500 ">
@@ -123,9 +133,10 @@ const RegisterScreen = () => {
               <div className="text-red-500 ">Passwords do not match</div>
             )}
         </div>
-        <div className="inline-block px-7 text-center py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full ">
-          <button className="primary-button">Register</button>
-        </div>
+
+        <ButtonGeneral className="flex w-full justify-center items-center">
+          Register
+        </ButtonGeneral>
       </form>
     </div>
   );

@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import SignOutButton from "../auth/SignOutButton";
 
 const MenuUser = ({ open }: { open: boolean }) => {
@@ -7,13 +5,9 @@ const MenuUser = ({ open }: { open: boolean }) => {
     <>
       {open && (
         <div
-          className="absolute bg-[#003249] bottom-0  top-full text-[#89998A]   flex flex-col items-center justify-center gap-6 pt-6 px-3 pb-3 h-fit "
+          className="absolute bg-[#003249] bottom-0  z-50 top-full text-[#89998A]   flex flex-col items-center justify-center gap-6 pt-6 px-3 pb-3 h-fit "
           id="menuUser"
         >
-          <Link href="/workout">workout</Link>
-          <Link href="/history">history</Link>
-          <Link href="/friends">friends</Link>
-
           <SignOutButton />
         </div>
       )}

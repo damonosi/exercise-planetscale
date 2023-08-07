@@ -6,11 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 interface IProviders {
   children: JSX.Element | JSX.Element[];
+  session: any;
 }
 
-const Providers = ({ children }: IProviders) => {
+const Providers = ({ children, session }: IProviders) => {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <ToastContainer
         theme="light"
         position="top-center"

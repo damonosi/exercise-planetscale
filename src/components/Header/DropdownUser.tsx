@@ -2,7 +2,6 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { BsBoxArrowDown } from "react-icons/bs";
-import SignInButton from "../auth/SignInButton";
 import MenuUser from "./MenuUser";
 
 const DropdownUser = () => {
@@ -12,7 +11,7 @@ const DropdownUser = () => {
     return "loading...";
   }
   return (
-    <div className="flex items-center justify-center relative">
+    <div className="flex items-center justify-center relative ">
       {status === "authenticated" ? (
         <button
           className="group flex items-center justify-center  w-14 h-14 "
@@ -23,9 +22,7 @@ const DropdownUser = () => {
             <BsBoxArrowDown className="group-active:scale-90 group-hover:scale-95" />
           </span>{" "}
         </button>
-      ) : (
-        <SignInButton />
-      )}
+      ) : null}
       <MenuUser open={open} />
     </div>
   );
