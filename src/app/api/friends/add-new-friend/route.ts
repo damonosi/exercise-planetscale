@@ -8,7 +8,7 @@ type RequestBody = {
 export async function POST(req: Request) {
   const body: RequestBody = await req.json();
   const session = await getServerSession(authOptions);
-  const userId = Number(session?.user?.id);
+  const userId = String(session?.user?.id);
   const username = session?.user?.username;
   const { name } = body;
   async function findFriendId() {
