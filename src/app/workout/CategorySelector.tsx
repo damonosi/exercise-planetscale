@@ -14,10 +14,10 @@ const CategorySelector = () => {
   function handlePrevious() {
     if (categoryIndex === 0) {
       setCategoryIndex(3);
-      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
+      dispatch(setCategory(`${categoryArray[3]}`));
     } else {
       setCategoryIndex(categoryIndex - 1);
-      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
+      dispatch(setCategory(`${categoryArray[categoryIndex - 1]}`));
     }
   }
 
@@ -27,7 +27,7 @@ const CategorySelector = () => {
       dispatch(setCategory(`${categoryArray[0]}`));
     } else {
       setCategoryIndex(categoryIndex + 1);
-      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
+      dispatch(setCategory(`${categoryArray[categoryIndex + 1]}`));
     }
   }
 

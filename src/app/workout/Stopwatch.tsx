@@ -15,33 +15,32 @@ export const Stopwatch = ({ name }: IStopwatch) => {
     let intervalId: string | number | NodeJS.Timeout | undefined;
 
     if (isRunning) {
-      intervalId = setInterval(() => setTime(time + 1), 10);
+      intervalId = setInterval(() => {
+        setTime((timer) => timer + 1);
+      }, 1000);
     }
     return () => {
       clearInterval(intervalId);
     };
   }, [isRunning, time]);
 
-  // Hours calculation
-  const hours = Math.floor(time / 360000);
+  const getSeconds = `0${time % 60}`.slice(-2);
+  const minutes = Math.floor(time / 60);
+  const getMinutes = `0${minutes % 60}`.slice(-2);
+  const seconds = Number(getSeconds);
+  const getHours = `0${Math.floor(time / 3600)}`.slice(-2);
+  const hours = Number(getHours);
+  const formatTime = () => {
+    return `${getHours} : ${getMinutes} : ${getSeconds}`;
+  };
 
-  // Minutes calculation
-  const minutes = Math.floor((time % 360000) / 6000);
-
-  // Seconds calculation
-  const seconds = Math.floor((time % 6000) / 100);
-
-  // Milliseconds calculation
-  const milliseconds = time % 100;
-  const timeExercised = `${seconds}.${minutes}.${hours}`;
   return (
-    <div className="text-sm border-l-0 relative  flex flex-col gap-2 items-center w-1/3 font-extrabold text-gri font-[800 ] text-3xl border-[3px]  border-[#D35400] px-4 py-4 uppercase">
+    <div className="text-sm border-l-0 relative  flex flex-col  gap-2 items-center w-1/3 font-extrabold text-gri font-[800 ] text-3xl border-[3px]  border-[#D35400] px-0 py-4 uppercase">
       {" "}
       <button
         onClick={() => {
           setIsRunning(!isRunning);
           if (isRunning) {
-            console.log("time exercised", timeExercised);
             axios.post("/api/exercise/add-time-to-exercise", {
               seconds,
               minutes,
@@ -52,15 +51,19 @@ export const Stopwatch = ({ name }: IStopwatch) => {
             setTime(0);
           }
         }}
-        className="border rounded-full p-2"
+        className="border rounded-full  transition-all  "
       >
-        {isRunning ? "Stop" : "Start"}
+        {isRunning ? (
+          <span className="flex rounded-full w-full py-1 px-4 hover:bg-red-600">
+            Stop
+          </span>
+        ) : (
+          <span className="flex rounded-full w-full py-1 px-4 hover:bg-green-600">
+            Start
+          </span>
+        )}
       </button>
-      <p className=" ">
-        {hours}:{minutes.toString().padStart(2, "0")}:
-        {seconds.toString().padStart(2, "0")}:
-        {milliseconds.toString().padStart(2, "0")}
-      </p>
+      <span className=" text-sm">{formatTime()}</span>
     </div>
   );
 };
