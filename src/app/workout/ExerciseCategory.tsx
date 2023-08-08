@@ -1,8 +1,8 @@
-import { getTodayCount } from "@/lib/getData";
+import { getDayByUser } from "@/lib/getData";
 import CategorySelector from "./CategorySelector";
 
 const ExerciseCategory = async () => {
-  const today = await getTodayCount();
+  const today = await getDayByUser();
   if (!today) {
     return null;
   }

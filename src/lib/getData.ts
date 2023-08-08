@@ -25,21 +25,21 @@ export const GetAllDays = cache(async () => {
   return toateZilele;
 });
 
-export const getTodayCount = cache(async () => {
+export const getDayByUser = cache(async () => {
   const today = getTodayDate();
 
   const userId = await getUserId();
   if (!userId) {
     return;
   }
-  let todayCount = await prisma.exerciseDay.findFirst({
+  let dayByUser = await prisma.exerciseDay.findFirst({
     where: { userId: userId, date: today },
     include: {
       exercises: true,
     },
   });
 
-  return todayCount;
+  return dayByUser;
 });
 export const GetFriendsData = cache(async () => {
   const userId = await getUserId();

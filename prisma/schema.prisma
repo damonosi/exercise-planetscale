@@ -25,7 +25,7 @@ model User {
 
 model Exercise{
     id      String       @id @default(uuid())
-    name String
+    name String  
     dayId              String  
     day ExerciseDay @relation(fields: [dayId], references: [id])
     category ExerciseCategory 
