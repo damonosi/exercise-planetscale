@@ -3,7 +3,7 @@ import Arrow from "@/components/svgs/Arrow";
 import { setCategory } from "@/redux/features/selectedCategorySlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const CategorySelector = () => {
   const [categoryIndex, setCategoryIndex] = useState(0);
@@ -30,9 +30,7 @@ const CategorySelector = () => {
       dispatch(setCategory(`${categoryArray[categoryIndex]}`));
     }
   }
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+
   return (
     <div className="flex w-full items-center justify-between">
       <button onClick={handlePrevious}>

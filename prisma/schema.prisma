@@ -17,10 +17,7 @@ model User {
   friends         User[] @relation("friends")
   friendsRelation User[] @relation("friends")
   history   ExerciseDay[]
-  
 }
-
-
 
 
 model Exercise{
@@ -30,7 +27,7 @@ model Exercise{
     day ExerciseDay @relation(fields: [dayId], references: [id])
     category ExerciseCategory 
     timeToBeat Int @default(10)
-    time Int? @default(0)
+    time Decimal?  @db.Decimal(10, 2) @default(0)
     @@index([dayId])
 }
 
