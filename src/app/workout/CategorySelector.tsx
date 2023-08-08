@@ -1,33 +1,44 @@
 "use client";
 import Arrow from "@/components/svgs/Arrow";
+import { setCategory } from "@/redux/features/selectedCategorySlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CategorySelector = () => {
-  const [category, setCategory] = useState(0);
+  const [categoryIndex, setCategoryIndex] = useState(0);
   const categoryArray = ["endurance", "strength", "balance", "flexibility"];
+  const category = useAppSelector((state) => state.categoryReducer.value);
 
+  const dispatch = useAppDispatch();
   function handlePrevious() {
-    if (category === 0) {
-      setCategory(3);
+    if (categoryIndex === 0) {
+      setCategoryIndex(3);
+      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
     } else {
-      setCategory(category - 1);
+      setCategoryIndex(categoryIndex - 1);
+      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
     }
   }
 
   function handleNext() {
-    if (category === 3) {
-      setCategory(0);
+    if (categoryIndex === 3) {
+      setCategoryIndex(0);
+      dispatch(setCategory(`${categoryArray[0]}`));
     } else {
-      setCategory(category + 1);
+      setCategoryIndex(categoryIndex + 1);
+      dispatch(setCategory(`${categoryArray[categoryIndex]}`));
     }
   }
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
   return (
     <div className="flex w-full items-center justify-between">
       <button onClick={handlePrevious}>
         <Arrow />
       </button>
-      <span className="uppercase">{categoryArray[category]}</span>
+      <span className="uppercase">{category}</span>
       <button
         onClick={handleNext}
         className="rotate-180"

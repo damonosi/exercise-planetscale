@@ -1,7 +1,10 @@
 "use client";
 
+import { store } from "@/redux/store";
 import { SessionProvider } from "next-auth/react";
+import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 interface IProviders {
@@ -11,21 +14,23 @@ interface IProviders {
 
 const Providers = ({ children, session }: IProviders) => {
   return (
-    <SessionProvider session={session}>
-      <ToastContainer
-        theme="light"
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      {children}
-    </SessionProvider>
+    <ReduxProvider store={store}>
+      <SessionProvider session={session}>
+        <ToastContainer
+          theme="light"
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {children}
+      </SessionProvider>
+    </ReduxProvider>
   );
 };
 

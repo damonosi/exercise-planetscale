@@ -48,11 +48,11 @@ const NewExerciseForm = () => {
       >
         add new exercise
       </span>
-      <div className="flex items-center border  border-b-0 w-full  py-8 justify-between relative font-extrabold text-gri font-[800 ] text-4xl border-[3px] pl-4  border-[#D35400]  py-4 uppercase">
+      <div className="flex items-center border  border-b-0 w-full  py-8 justify-between relative font-extrabold text-gri font-[800 ] text-3xl border-[3px] pl-4  border-[#D35400]  py-4 uppercase">
         <span className="w-1/3">category</span>
         <span className="w-1/3">exercise name</span>
         <div className="w-1/3 flex flex-col">
-          <span>time to beat </span> <span className="text-xl">(minutes)</span>
+          <span>target </span> <span className="text-xl">(minutes)</span>
         </div>
       </div>
       <form
@@ -68,7 +68,7 @@ const NewExerciseForm = () => {
             className=" bg-black rounded-lg text-2xl flex  w-full mr-16 bg-transparent float-left  hover:cursor-pointer "
           >
             <option
-              className="text-black uppercase flex justify-center items-center"
+              className="text-black capitalize "
               value=""
             >
               select category
@@ -76,14 +76,14 @@ const NewExerciseForm = () => {
             <option
               onClick={() => setSelectedCategory("endurance")}
               value="endurance"
-              className="text-black  uppercase"
+              className="text-black  capitalize"
             >
               endurance
             </option>
             <option
               onClick={() => setSelectedCategory("strength")}
               value="strength"
-              className="text-black  uppercase "
+              className="text-black  capitalize "
             >
               strength
             </option>
@@ -91,14 +91,14 @@ const NewExerciseForm = () => {
             <option
               onClick={() => setSelectedCategory("balance")}
               value="balance"
-              className="text-black  uppercase "
+              className="text-black  capitalize "
             >
               balance
             </option>
             <option
               onClick={() => setSelectedCategory("flexibility")}
               value="flexibility"
-              className="text-black uppercase "
+              className="text-black capitalize "
             >
               flexibility
             </option>
@@ -107,17 +107,24 @@ const NewExerciseForm = () => {
         <div className="flex w-1/3  overflow-visible">
           <select
             id="name"
-            defaultValue="select exercise"
+            defaultValue=""
             {...register("name")}
-            disabled={selectedCategory === ""}
-            className="  rounded-lg text-2xl flex  w-full bg-transparent float-left  "
+            disabled={selectedCategory === "" ? true : false}
+            className={` rounded-lg text-2xl flex  w-full bg-transparent float-left ${
+              selectedCategory === "" ? "cursor-not-allowed" : ""
+            } `}
           >
-            <option value="">select exercise</option>
+            <option
+              className="text-black capitalize"
+              value=""
+            >
+              select exercise
+            </option>
             {selectedCategory === ""
               ? ""
               : recastedOptions[selectedCategory].map((name: any) => (
                   <option
-                    className=""
+                    className="text-black capitalize"
                     value={name}
                   >
                     {name}
