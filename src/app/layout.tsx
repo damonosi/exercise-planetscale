@@ -24,10 +24,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers session={session}>
-          <main className="flex  text-gri flex-col">
+          <main className="flex relative text-gri flex-col">
             <Image
               alt="site back"
-              className="w-full h-screen z-10"
+              className="w-full absolute top-0 bottom-0 h-full z-10"
               layout="fill"
               src="/backgr.png"
             />
