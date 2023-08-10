@@ -31,6 +31,7 @@ export async function POST(req: Request) {
     const existingExercise = await prisma.exercise.findFirst({
       where: {
         name: name,
+        dayId: today.id,
       },
     });
     if (existingExercise) {

@@ -1,5 +1,6 @@
 import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 import { cache } from "react";
 import getTodayDate from "../utils/getDate";
 import prisma from "./prisma";
@@ -27,10 +28,10 @@ export const GetAllDays = cache(async () => {
 
 export const getDayByUser = cache(async () => {
   const today = getTodayDate();
-
+  const todayDate = getTodayDate();
   const userId = await getUserId();
   if (!userId) {
-    return;
+    return NextResponse.json("Must be logged in");
   }
   let dayByUser = await prisma.exerciseDay.findFirst({
     where: { userId: userId, date: today },
@@ -38,8 +39,20 @@ export const getDayByUser = cache(async () => {
       exercises: true,
     },
   });
-
-  return dayByUser;
+  if (!dayByUser) {
+    let dayByUser = await prisma.exerciseDay.create({
+      data: {
+        userId: String(userId),
+        date: todayDate,
+      },
+      include: {
+        exercises: true,
+      },
+    });
+    return dayByUser;
+  } else {
+    return dayByUser;
+  }
 });
 export const GetFriendsData = cache(async () => {
   const userId = await getUserId();

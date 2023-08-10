@@ -18,10 +18,10 @@ export async function POST(req: Request) {
   const today = await getDayByUser();
 
   if (!today) {
-    return;
+    return NextResponse.json("NO day made");
   }
 
-  const exerciseToUpdate = today.exercises.filter(({ name }) =>
+  const exerciseToUpdate = await today.exercises.filter(({ name }) =>
     name.includes(reqName),
   );
   const todayId = exerciseToUpdate[0].id;

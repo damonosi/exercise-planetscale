@@ -1,5 +1,4 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -10,7 +9,7 @@ interface IStopwatch {
 export const Stopwatch = ({ name }: IStopwatch) => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const cat = useAppSelector((state) => state.categoryReducer.value);
+
   useEffect(() => {
     let intervalId: string | number | NodeJS.Timeout | undefined;
 
@@ -33,32 +32,39 @@ export const Stopwatch = ({ name }: IStopwatch) => {
   const formatTime = () => {
     return `${getHours} : ${getMinutes} : ${getSeconds}`;
   };
+  const handleClick = () => {
+    setIsRunning(!isRunning);
+    if (isRunning) {
+      axios.post("/api/exercise/add-time-to-exercise", {
+        seconds,
+        minutes,
+        hours,
+        name,
+      });
 
+      setTime(0);
+    }
+  };
   return (
-    <div className="text-sm border-l-0 relative  flex flex-col  gap-2 items-center w-1/3 font-extrabold text-gri font-[800 ] text-3xl border-[3px]  border-[#D35400] px-0 py-4 uppercase">
-      {" "}
+    <div
+      className={`text-sm  flex flex-col border-l-0 gap-2 items-center w-1/3 font-extrabold text-gri  px-0 py-4 uppercase`}
+    >
+      <span
+        className={`absolute bg-yellow-700 bg-opacity-50 w-full -z-10 top-0 bottom-0 left-0 translate-x-full transition-transform ${
+          isRunning ? " translate-x-0" : ""
+        }  `}
+        id="running-mask"
+      />
       <button
-        onClick={() => {
-          setIsRunning(!isRunning);
-          if (isRunning) {
-            axios.post("/api/exercise/add-time-to-exercise", {
-              seconds,
-              minutes,
-              hours,
-              name,
-            });
-
-            setTime(0);
-          }
-        }}
+        onClick={handleClick}
         className="border rounded-full  transition-all  "
       >
         {isRunning ? (
-          <span className="flex rounded-full w-full py-1 px-4 hover:bg-red-600">
+          <span className="flex rounded-full h-8 items-center justify-center w-full py-2 px-4 hover:bg-red-600">
             Stop
           </span>
         ) : (
-          <span className="flex rounded-full w-full py-1 px-4 hover:bg-green-600">
+          <span className="flex rounded-full h-8 items-center justify-center w-full py-2 px-4 hover:bg-green-600">
             Start
           </span>
         )}
