@@ -1,4 +1,4 @@
-import { getDayByUser } from "@/lib/getData";
+import { getTodayExercises } from "@/lib/getData";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -15,13 +15,13 @@ export async function POST(req: Request) {
   const secondsToMinutes = seconds / 60;
   const hoursToMinutes = hours * 60;
   const timeExercised = secondsToMinutes + minutes + hoursToMinutes;
-  const today = await getDayByUser();
+  const todayExercises = await getTodayExercises();
 
-  if (!today) {
+  if (!todayExercises) {
     return NextResponse.json("NO day made");
   }
 
-  const exerciseToUpdate = await today.exercises.filter(({ name }) =>
+  const exerciseToUpdate = todayExercises.filter(({ name }: { name: string }) =>
     name.includes(reqName),
   );
   const todayId = exerciseToUpdate[0].id;

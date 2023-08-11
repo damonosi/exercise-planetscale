@@ -32,7 +32,7 @@ const CategoriesDisplay = () => {
             const percentCompleted = String(percentComplete.toFixed(0));
             return (
               <div
-                className="group flex w-full  items-center h-28 justify-between border-[3px] overflow-hidden border-[#D35400] relative"
+                className="group flex w-full  items-center h-28 justify-between border-[3px] overflow-hidden border-[#D35400] relative rounded-full"
                 key={name}
               >
                 <div

@@ -47,29 +47,25 @@ export const Stopwatch = ({ name }: IStopwatch) => {
   };
   return (
     <div
-      className={`text-sm  flex flex-col border-l-0 gap-2 items-center w-1/3 font-extrabold text-gri  px-0 py-4 uppercase`}
+      className={`flex  w-1/3 flex-col items-center gap-2 border-l-0 px-0 py-4 text-sm  font-extrabold uppercase text-gri`}
     >
       <span
-        className={`absolute bg-yellow-700 bg-opacity-50 w-full -z-10 top-0 bottom-0 left-0 translate-x-full transition-transform ${
-          isRunning ? " translate-x-0" : ""
-        }  `}
+        className={`absolute right-0 top-0 -z-10  h-full w-full origin-top-right translate-x-full bg-yellow-700 bg-opacity-50
+         transition-transform duration-500 ${isRunning ? "  -translate-x-0  " : ""}  `}
         id="running-mask"
       />
-      <button
-        onClick={handleClick}
-        className="border rounded-full  transition-all  "
-      >
+      <button onClick={handleClick} className="rounded-full border  transition-all  ">
         {isRunning ? (
-          <span className="flex rounded-full h-8 items-center justify-center w-full py-2 px-4 hover:bg-red-600">
+          <span className="flex h-8 w-full items-center justify-center rounded-full px-4 py-2 hover:bg-red-600">
             Stop
           </span>
         ) : (
-          <span className="flex rounded-full h-8 items-center justify-center w-full py-2 px-4 hover:bg-green-600">
+          <span className="flex h-8 w-full items-center justify-center rounded-full px-4 py-2 hover:bg-green-600">
             Start
           </span>
         )}
       </button>
-      <span className=" text-sm">{formatTime()}</span>
+      <span className={` text-sm   ${!isRunning ? "hidden" : "flex"}`}>{formatTime()}</span>
     </div>
   );
 };
